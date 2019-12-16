@@ -34,9 +34,10 @@ public class TokenUtil {
     }
 
     /**
+     * Checks if the supplied token is valid.
      *
-     * @param token
-     * @return
+     * @param token token to check
+     * @return decoded token
      */
     public Mono<DecodedJWT> isValid(String token) {
         return Mono.fromSupplier(() -> {
@@ -51,9 +52,10 @@ public class TokenUtil {
     }
 
     /**
+     * Creates a new token for the user.
      *
-     * @param username
-     * @return
+     * @param username username of token subject
+     * @return signed token
      */
     public Mono<String> create(String username) {
         return Mono.fromSupplier(() -> JWT.create()
