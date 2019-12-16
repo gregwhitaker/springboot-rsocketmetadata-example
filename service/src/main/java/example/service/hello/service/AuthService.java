@@ -5,16 +5,25 @@ import example.service.hello.core.auth.TokenAuthorizer;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Service that handles authentication with the system.
  */
 @Component
 public class AuthService {
 
+    private final Map<String, String> USERS = new HashMap<>();
+
     private TokenAuthorizer tokenAuthorizer;
 
     public AuthService(TokenAuthorizer tokenAuthorizer) {
         this.tokenAuthorizer = tokenAuthorizer;
+
+        // Setting up dummy username/password data
+        USERS.put("admin", "$2a$10$YKo/iq9nslCRWiAbhn2twuoNQ5GQfoh.oamFYZucEUXOQsQl52Tm2");
+        USERS.put("user", "$2a$10$J54vhPD4bVd78bPyz4.I1ec4EwkBdWjWbFrhOifooq1345nrdYT8");
     }
 
     /**
