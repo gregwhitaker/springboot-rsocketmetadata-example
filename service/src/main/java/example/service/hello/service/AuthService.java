@@ -13,7 +13,6 @@ import java.util.Map;
  */
 @Component
 public class AuthService {
-
     private final Map<String, String> USERS = new HashMap<>();
 
     private TokenAuthorizer tokenAuthorizer;
