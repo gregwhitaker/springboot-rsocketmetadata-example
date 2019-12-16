@@ -1,10 +1,13 @@
 package example.service.hello.service;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import example.service.hello.core.auth.TokenAuthorizer;
+import example.service.hello.core.auth.PasswordUtil;
+import example.service.hello.core.auth.TokenUtil;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import java.sql.Date;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,10 +18,10 @@ import java.util.Map;
 public class AuthService {
     private final Map<String, String> USERS = new HashMap<>();
 
-    private TokenAuthorizer tokenAuthorizer;
+    private TokenUtil tokenUtil;
 
-    public AuthService(TokenAuthorizer tokenAuthorizer) {
-        this.tokenAuthorizer = tokenAuthorizer;
+    public AuthService(TokenUtil tokenUtil) {
+        this.tokenUtil = tokenUtil;
 
         // Setting up dummy username/password data
         USERS.put("admin", "$2a$10$YKo/iq9nslCRWiAbhn2twuoNQ5GQfoh.oamFYZucEUXOQsQl52Tm2");
@@ -32,7 +35,14 @@ public class AuthService {
      * @return a {@link DecodedJWT} if successful
      */
     public Mono<DecodedJWT> authorize(String token) {
-        return tokenAuthorizer.authorize(token);
+        return tokenUtil.isValid(token)
+                .map(decodedJWT -> {
+                    if (decodedJWT.getExpiresAt().after(Date.from(Instant.now()))) {
+                        return decodedJWT;
+                    } else {
+                        throw new RuntimeException("JWT token has expired");
+                    }
+                });
     }
 
     /**
@@ -42,15 +52,12 @@ public class AuthService {
      * @return
      */
     public Mono<String> login(String username, String password) {
-        return null;
-    }
-
-    /**
-     *
-     * @param decodedJWT
-     * @return
-     */
-    public Mono<?> logout(DecodedJWT decodedJWT) {
-        return null;
+        return Mono.fromSupplier(() -> USERS.containsKey(username) && PasswordUtil.matches(password, USERS.get(username))).flatMap(valid -> {
+            if (valid) {
+                return tokenUtil.create(username);
+            } else {
+                return Mono.error(new RuntimeException("Invalid username or password"));
+            }
+        });
     }
 }

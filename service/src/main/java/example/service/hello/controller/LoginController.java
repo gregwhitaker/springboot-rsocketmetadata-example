@@ -3,7 +3,6 @@ package example.service.hello.controller;
 import example.service.hello.controller.model.LoginRequest;
 import example.service.hello.controller.model.LoginResponse;
 import example.service.hello.service.AuthService;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Mono;
@@ -36,17 +35,5 @@ public class LoginController {
 
                     return response;
                 });
-    }
-
-    /**
-     * Logs the specified user out of the system.
-     *
-     * @param token jwt token of the user to log out
-     * @return an empty mono if successful
-     */
-    @MessageMapping("logout")
-    public Mono<?> logout(@Header("token") String token) {
-        return authService.authorize(token)
-                .map(authService::logout);
     }
 }
