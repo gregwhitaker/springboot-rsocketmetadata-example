@@ -1,0 +1,11 @@
+plugins {
+    id "java"
+    id "org.springframework.boot"
+    id "io.spring.dependency-management"
+}
+
+sourceCompatibility = 1.8
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-rsocket'
+}
