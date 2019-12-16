@@ -1,5 +1,8 @@
 package example.service.hello.controller.model;
 
+/**
+ * API response sent on successful login.
+ */
 public class LoginResponse {
 
     private String token;

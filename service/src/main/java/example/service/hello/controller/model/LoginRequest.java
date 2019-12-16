@@ -1,5 +1,8 @@
 package example.service.hello.controller.model;
 
+/**
+ * API request for logging into the system.
+ */
 public class LoginRequest {
 
     private String username;

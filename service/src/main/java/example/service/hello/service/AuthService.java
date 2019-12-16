@@ -38,7 +38,7 @@ public class AuthService {
     }
 
     /**
-     * 
+     *
      * @param decodedJWT
      * @return
      */
