@@ -24,7 +24,7 @@ public class TokenAuthorizer {
         Algorithm algorithm = Algorithm.HMAC256(jwtSecret);
 
         this.verifier = JWT.require(algorithm)
-                .withIssuer("auth0")
+                .withIssuer("springboot-rsocketmetadata-example")
                 .build();
     }
 
