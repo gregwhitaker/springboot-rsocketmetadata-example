@@ -1,4 +1,5 @@
 # springboot-rsocketmetadata-example
+An example of sending per-request metadata with [RSocket](http://rsocket.io) and Spring Boot.
 
 ## Building the Example
 Run the following command to build the example:
@@ -6,6 +7,23 @@ Run the following command to build the example:
     ./gradlew clean build
 
 ## Running the Example
+Follow the steps below to run the example:
+
+1. Run the following command to start the `hello-service`:
+
+        ./gradlew :hello-service:bootRun
+        
+2. In a new terminal, run the following command to call the `hello-service` using the `hello-client`:
+
+        ./gradlew :hello-client:bootRun --args="hello Bob"
+
+    If successful, you will see the response message containing the `traceId` and `spanId` metadata printed to the console:
+
+        e.client.hello.HelloClientApplication    : Sending message...
+        e.client.hello.HelloClientApplication    : Response: Hello, Bob! [traceId: 'efb0cf0f-ee96-4e41-8777-db67e806323f', spanId: '146967266']
+        
+## Bugs and Feedback
+For bugs, questions, and discussions please use the [Github Issues](https://github.com/gregwhitaker/springboot-rsocketmetadata-example/issues).
 
 ## License
 MIT License
