@@ -45,8 +45,10 @@ public class HelloClientApplication {
             Random rand = new Random(System.currentTimeMillis());
 
             String message = rSocketRequester.route(params.method)
-                    .metadata(UUID.randomUUID().toString(), MimeType.valueOf("message/x.hello.trace"))
-                    .metadata(rand.nextInt(), MimeType.valueOf("message/x.hello.num"))
+                    .metadata(metadataSpec -> {
+                        metadataSpec.metadata(UUID.randomUUID().toString(), MimeType.valueOf("message/x.hello.trace"));
+                        metadataSpec.metadata(Integer.toString(rand.nextInt()), MimeType.valueOf("message/x.hello.span"));
+                    })
                     .data(params.name)
                     .retrieveMono(String.class)
                     .doOnError(throwable -> {

@@ -24,6 +24,6 @@ public class HelloController {
      */
     @MessageMapping("hello")
     public Mono<String> hello(String name, @Headers Map<String, Object> metadata) {
-        return Mono.fromSupplier(() -> String.format("Hello, %s! [metadata1: '%s', metadata2: '%s']", name, metadata.get("metadata1"), metadata.get("metadata2")));
+        return Mono.fromSupplier(() -> String.format("Hello, %s! [traceId: '%s', spanId: '%s']", name, metadata.get("traceId"), metadata.get("spanId")));
     }
 }
