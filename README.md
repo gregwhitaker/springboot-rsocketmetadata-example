@@ -1,5 +1,12 @@
 # springboot-rsocketmetadata-example
 
+## Building the Example
+Run the following command to build the example:
+
+    ./gradlew clean build
+
+## Running the Example
+
 ## License
 MIT License
 
