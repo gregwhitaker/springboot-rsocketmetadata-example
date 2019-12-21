@@ -15,6 +15,9 @@ public class HelloClientApplication {
         SpringApplication.run(HelloClientApplication.class, args);
     }
 
+    /**
+     * Runs the application.
+     */
     @Component
     public class Runner implements CommandLineRunner {
 
