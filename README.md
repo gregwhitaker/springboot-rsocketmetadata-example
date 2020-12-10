@@ -1,4 +1,6 @@
 # springboot-rsocketmetadata-example
+![Build](https://github.com/gregwhitaker/springboot-rsocketmetadata-example/workflows/Build/badge.svg)
+
 An example of sending per-request metadata with [RSocket](http://rsocket.io) and Spring Boot.
 
 ## Building the Example
